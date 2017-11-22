@@ -17,16 +17,14 @@ namespace SMN\Common;
  * @author sunzhixi
  */
 class Config
-{    
-    //public static $authUri="https://10.154.69.13:31943/v3/auth/tokens";
-    //public static $authBaseUrl="https://iam.%s.myhwclouds.com/v3/auth/tokens";
+{
     public static $version = "smn-sdk-php/1.0.0";
     public static $authUrl = "https://iam.{regionId}.myhwclouds.com/v3/auth/tokens";
     public static $authJson='{"auth":{"identity":{"methods":["password"],"password":{"user":{"name":"{userName}","domain":{"name":"{domainName}"},"password":"{password}"}}},"scope":{"project":{"name":"{regionId}"}}}}';
     public static $smnBaseUrl="https://smn.{regionId}.myhwclouds.com";
     public static $smsPublishApi="/v2/{projectId}/notifications/sms";
 
-    public static $proxy_host="127.0.0.1";
-    public static $proxy_port=8080;
+    public static $proxy_host=NULL;
+    public static $proxy_port=NULL;
 }
 ?>

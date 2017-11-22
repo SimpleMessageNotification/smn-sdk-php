@@ -75,9 +75,13 @@ class CloudAccount
         $url=Config::$authUrl;
         $url=str_replace(array("{regionId}"),array($this->getRegionId()),$url);
         $auth_json_tmpl=Config::$authJson;
-        //$auth_json = sprintf($auth_json_tmpl,$this->userName,$this->domainName,$this->password,$this->regionId);
         $auth_json = str_replace(array("{userName}","{password}","{domainName}","{regionId}"),array($this->userName,$this->password,$this->domainName,$this->regionId),$auth_json_tmpl);
-        $response = HttpHelper::init()->addHeader('User-Agent',Config::$version)->uri($url)->method(Http::POST)->body($auth_json,"json")->expects("json")->useProxy(Config::$proxy_host,Config::$proxy_port)->withoutStrictSSL()->send();
+        $httpHelper = HttpHelper::init()->addHeader('User-Agent',Config::$version)->uri($url)->method(Http::POST)->body($auth_json,"json")->expects("json")->withoutStrictSSL();
+        if(!is_null(Config::$proxy_host) && !is_null(Config::$proxy_port))
+        {
+            $httpHelper = $httpHelper->useProxy(Config::$proxy_host,Config::$proxy_port);
+        }
+        $response = $httpHelper->send();
         $Headers=$response->headers->toArray();
         $secretToken=isset($Headers['X-Subject-Token']) ? $Headers['X-Subject-Token'] : NULL;
         $token = $response->body;

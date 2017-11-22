@@ -32,7 +32,6 @@ class Bootstrap
      */
     public static function autoload($classname)
     {
-        //echo $classname; 
         self::_autoload(dirname(dirname(__FILE__)), $classname);
     }
 

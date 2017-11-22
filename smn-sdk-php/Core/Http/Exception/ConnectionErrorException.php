@@ -1,6 +1,6 @@
 <?php
 
-namespace Httpful\Exception;
+namespace Http\Exception;
 
 
 class ConnectionErrorException extends \Exception {

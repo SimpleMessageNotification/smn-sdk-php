@@ -27,18 +27,13 @@ class AuthToken
     
     public function __construct($secretToken,$token)
     {
-        //var_dump($token);
         $this->secretToken = $secretToken;
         $this->token = $token;
-        $now = new \DateTime();
-        //$this->refreshDate = $now->format($this->dateTimeFormat);
-        //var_dump(isset($token->token));
         if(isset($token->token))
         {
 			$this->refreshDate = $token->token->issued_at;
             $this->setExpiredDate($token->token->expires_at);
             $this->setProjectId($token->token->project->id);
-            //var_dump($this->projectId);
         }
     }
     

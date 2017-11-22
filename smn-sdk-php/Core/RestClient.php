@@ -30,9 +30,26 @@ class RestClient
     private static $proxy_type;
     private static $proxy_host;
     private static $proxy_port;
+    public static function setProxy_host($proxy_host)
+    {
+        self::$proxy_host = $proxy_host;
+    }
+    public static function setProxy_port($proxy_port)
+    {
+        self::$proxy_port = $proxy_port;
+    }
     public static function getResponse($request)
     {
-        $response = HttpHelper::init()->uri($request->uri)->method(strtoupper($request->method))->addHeaders($request->headers)->body($request->body,$request->content_type)->expects($request->expected_type)->useProxy(Config::$proxy_host,Config::$proxy_port)->withoutStrictSSL()->send();
+        $httpHelper = HttpHelper::init()->uri($request->uri)->method(strtoupper($request->method))->addHeaders($request->headers)->body($request->body,$request->content_type)->expects($request->expected_type)->withoutStrictSSL();
+        if(!is_null(Config::$proxy_host) && !is_null(Config::$proxy_port))
+        {
+            $httpHelper = $httpHelper->useProxy(Config::$proxy_host,Config::$proxy_port);
+        }
+        if(!is_null(self::$proxy_host) && !is_null(self::$proxy_port))
+        {
+            $httpHelper = $httpHelper->useProxy(self::$proxy_host,self::$proxy_port);
+        }
+        $response = $httpHelper->send();
         return new Response($request,$response);
     }
 }    
