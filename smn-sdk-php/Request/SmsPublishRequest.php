@@ -110,7 +110,7 @@ class SmsPublishRequest extends AbstractRequest
         $request->headers['X-Auth-Token'] = $this->account->getAuthToken()->getSecretToken();
         $request->body['endpoint']        = $this->endpoint;
         $request->body['message']         = $this->message;
-        $request->body['signId']          = $this->signId;
+        $request->body['sign_id']         = $this->signId;
         $request->content_type            = $this->getContent_type();
         $request->expected_type           = $this->getExpected_type();
         return $request;
