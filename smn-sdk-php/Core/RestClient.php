@@ -3,6 +3,7 @@ namespace SMN\Core;
 use Http\HttpHelper   as HttpHelper;
 use SMN\Common\Config as Config;
 use SMN\Core\Response as Response;
+use SMN\Exception\SMNException as SMNException;
 /**
  * Clean, simple static class for HTTP REST Client.
  * in PHP.
@@ -49,7 +50,14 @@ class RestClient
         {
             $httpHelper = $httpHelper->useProxy(self::$proxy_host,self::$proxy_port);
         }
-        $response = $httpHelper->send();
+        try
+        {
+            $response = $httpHelper->send();
+        }
+        catch (\Exception $exception)
+        {
+            throw new SMNException("SDK.ServerException",$exception->getMessage());
+        }
         return new Response($request,$response);
     }
 }    

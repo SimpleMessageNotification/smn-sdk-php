@@ -20,7 +20,6 @@ class Bootstrap
 {
     public static function init()
     {
-		date_default_timezone_set('UTC');
         self::initHttp();
     }
     public static function initHttp()

@@ -13,11 +13,12 @@ namespace SMN\Auth;
  * and "chainabilty" of the library.
  *
  * 认证Token类定义
- * 保存从IAM获取的X-Subject-Token的值，每次访问都要更新有效时间。
+ * 保存从IAM获取的Token值，每次访问都会记录有效时间。
  * @author sunzhixi
  */
 class AuthToken
 {
+    private $timezone;
     private $dateTimeFormat = 'Y-m-d\TH:i:s.u\Z';
     private $refreshDate;
     private $expiredDate;
@@ -27,6 +28,7 @@ class AuthToken
     
     public function __construct($secretToken,$token)
     {
+        $this->timezone = new \DateTimeZone('UTC');
         $this->secretToken = $secretToken;
         $this->token = $token;
         if(isset($token->token))
@@ -39,12 +41,10 @@ class AuthToken
     
     public function isExpired()
     {
-        if (is_null($this->expiredDate))
-        {
-            return false;
-        }
-        $expires_at = \DateTime::CreateFromFormat($this->dateTimeFormat,$this->expiredDate);
-        $now = new \DateTime();
+        $expires_at = \DateTime::CreateFromFormat($this->dateTimeFormat,$this->expiredDate,$this->timezone);
+        $m=new \DateInterval('PT30M');
+        $expires_at->sub($m);
+        $now = new \DateTime("now",$this->timezone);
         if ($expires_at>$now) 
         {
             return false;

@@ -2,6 +2,8 @@
 namespace SMN\Request;
 use SMN\Core\AbstractRequest as AbstractRequest;
 use SMN\Common\Config        as Config;
+use SMN\Exception\SMNException as SMNException;
+
 /**
  * simple class for SMN SmsPublish request.
  * in PHP.
@@ -23,6 +25,7 @@ class SmsPublishRequest extends AbstractRequest
     private $endpoint;
     private $message;
     private $signId;
+    private $patternTelphone = '/^\+?[0-9]{1,31}$/';
     public function __construct($account)
     {
         parent::__construct("SmsPublish",$account);
@@ -56,8 +59,36 @@ class SmsPublishRequest extends AbstractRequest
     {    
         $this->signId=$signId;
     }
+    private function validateSignId()
+    {
+        if(empty($this->signId))
+        {
+            throw new SMNException("SDK.SmsPublishRequestException","SmsPublishRequestException : empty signId!");
+        }
+    }
+    private function validateMessage()
+    {
+        if(is_null($this->message))
+        {
+            throw new SMNException("SDK.SmsPublishRequestException","SmsPublishRequestException : No Message!");
+        }
+    }
+    private function validateEndpoint()
+    {
+        if(is_null($this->endpoint))
+        {
+            throw new SMNException("SDK.SmsPublishRequestException","SmsPublishRequestException : No endpoint!");
+        }
+        if(!preg_match($this->patternTelphone,$this->endpoint))
+        {
+            throw new SMNException("SDK.SmsPublishRequestException","SmsPublishRequestException : Wrong phone number format, correct format is +8600000000000 or 00000000000!");
+        }
+    }
     public function buildRequest()
-    {  
+    {
+        $this->validateEndpoint();
+        $this->validateSignId();
+        $this->validateMessage();
         $url=str_replace(array('{regionId}','{projectId}'),array($this->account->getRegionId(),$this->account->getAuthToken()->getProjectId()),$this->getUrl());
         $this->setUrl($url);
         $request = new \stdclass();

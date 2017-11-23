@@ -4,6 +4,7 @@ use SMN\Common\Config  as Config;
 use SMN\Auth\AuthToken as AuthToken;
 use Http\HttpHelper    as HttpHelper;
 use Http\Http          as Http;
+use SMN\Exception\SMNException as SMNException;
 /**
  * Clean, simple class for SMN Cloud Account.
  * in PHP.
@@ -17,7 +18,7 @@ use Http\Http          as Http;
  * and "chainabilty" of the library.
  *
  * SMN 租户类定义
- * 成员变量authToken保存从IAM获取的X-Subject-Token的值，每次访问都会更新有效时间。
+ * 成员变量authToken保存从IAM获取Token值，每次访问都会检查有效时间。
  * @author sunzhixi
  */
 class CloudAccount
@@ -81,9 +82,20 @@ class CloudAccount
         {
             $httpHelper = $httpHelper->useProxy(Config::$proxy_host,Config::$proxy_port);
         }
-        $response = $httpHelper->send();
+        try
+        {
+            $response = $httpHelper->send();
+        }
+        catch(\Exception $exception)
+        {
+            throw new SMNException("SDK.ServerException",$exception->getMessage());
+        }
         $Headers=$response->headers->toArray();
         $secretToken=isset($Headers['X-Subject-Token']) ? $Headers['X-Subject-Token'] : NULL;
+        if(is_null($secretToken))
+        {
+            throw new SMNException("SDK.AuthException","SDK.AuthException : Authentication failure!");
+        }
         $token = $response->body;
         $this->setAuthToken($secretToken,$token); 
     }
