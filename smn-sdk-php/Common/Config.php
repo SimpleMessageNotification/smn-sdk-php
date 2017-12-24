@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2017. Huawei Technologies Co., LTD. All rights reserved.
+ * Copyright (C) 2018. Huawei Technologies Co., LTD. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of Apache License, Version 2.0.
@@ -24,18 +24,11 @@ namespace SMN\Common;
  * and "chainabilty" of the library.
  *
  * 配置常量类定义
- * 
+ *
  * @author sunzhixi
  */
 class Config
 {
-    public static $version = "smn-sdk-php/1.0.0";
-    public static $authUrl = "https://iam.{regionId}.myhwclouds.com/v3/auth/tokens";
-    public static $authJson='{"auth":{"identity":{"methods":["password"],"password":{"user":{"name":"{userName}","domain":{"name":"{domainName}"},"password":"{password}"}}},"scope":{"project":{"name":"{regionId}"}}}}';
-    public static $smnBaseUrl="https://smn.{regionId}.myhwclouds.com";
-    public static $smsPublishApi="/v2/{projectId}/notifications/sms";
-
-    public static $proxy_host=NULL;
-    public static $proxy_port=NULL;
+    public static $proxy_host = NULL;
+    public static $proxy_port = NULL;
 }
-?>
