@@ -25,10 +25,11 @@ $client = new DefaultSmnClient(
     'YourAccountPassword',
     'YourRegionName');
 
-//// publish with message
-//publishWithMessage();
-//// publish with message structure
-//publishWithMessageStructure();
+// the demo lists
+// publish with message
+publishWithMessage();
+// publish with message structure
+publishWithMessageStructure();
 // publish with message template
 publishWithMessageTemplate();
 
