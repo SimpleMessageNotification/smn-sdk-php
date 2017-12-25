@@ -17,6 +17,7 @@ use Http\Http as Http;
 use SMN\Request\AbstractRequest as AbstractRequest;
 use SMN\Common\Constants as Constants;
 use SMN\Common\Util\ValidateUtil as ValidateUtil;
+use SMN\Exception\SMNException as SMNException;
 
 /**
  * Class ListSubscriptionsRequest
@@ -42,8 +43,8 @@ class ListSubscriptionsRequest extends AbstractRequest
     }
 
     /**
-     * get url of request
-     * @return mixed
+     * @return mixed|string
+     * @throws SMNException
      */
     public function getUrl()
     {
@@ -56,8 +57,8 @@ class ListSubscriptionsRequest extends AbstractRequest
         }
 
         return str_replace(array('{regionName}', '{projectId}'),
-            array($this->smnConfiguration->getRegionName(), $this->projectId),
-            Constants::SMN_BASE_URL . Constants::LIST_SUBSCRIPTIONS_API_URI) . parent::getQueryString();
+                array($this->smnConfiguration->getRegionName(), $this->projectId),
+                Constants::SMN_BASE_URL . Constants::LIST_SUBSCRIPTIONS_API_URI) . parent::getQueryString();
     }
 
     /**

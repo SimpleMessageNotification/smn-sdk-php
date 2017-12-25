@@ -16,6 +16,7 @@ namespace SMN\Request\Subscription;
 use Http\Http as Http;
 use SMN\Request\AbstractRequest as AbstractRequest;
 use SMN\Common\Constants as Constants;
+use SMN\Exception\SMNException as SMNException;
 
 /**
  * Class SubscribeRequest
@@ -32,8 +33,8 @@ class SubscribeRequest extends AbstractRequest
     private $remark;
 
     /**
-     * get url of request
      * @return mixed
+     * @throws SMNException
      */
     public function getUrl()
     {
