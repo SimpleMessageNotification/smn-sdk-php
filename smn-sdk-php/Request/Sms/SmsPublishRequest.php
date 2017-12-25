@@ -24,7 +24,7 @@ use SMN\Exception\SMNException as SMNException;
  * the request message for sms publish
  * @package SMN\Request\Auth
  * @author zhangyx
- * @version 1.0.1
+ * @version 1.1.0
  */
 class SmsPublishRequest extends AbstractRequest
 {

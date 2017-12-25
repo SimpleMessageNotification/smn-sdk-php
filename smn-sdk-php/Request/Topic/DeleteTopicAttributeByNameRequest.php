@@ -22,7 +22,7 @@ use SMN\Common\Constants as Constants;
  * the request to delete topic attribute
  * @package SMN\Request\Topic
  * @author zhangyx
- * @version 1.01.
+ * @version 1.1.0
  */
 class DeleteTopicAttributeByNameRequest extends AbstractRequest
 {

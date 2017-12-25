@@ -23,7 +23,7 @@ use SMN\Common\Util\ValidateUtil as ValidateUtil;
  * the request to publish message with message template
  * @package SMN\Request\Topic
  * @author zhangyx
- * @version 1.0.1
+ * @version 1.1.0
  */
 class PublishWithTemplateRequest extends AbstractRequest
 {

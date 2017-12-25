@@ -17,7 +17,7 @@ namespace SMN\Request;
  * Class AbstractRequest
  * @package SMN\Request
  * @author zhangyx
- * @version 1.0.1
+ * @version 1.1.0
  */
 abstract class AbstractRequest
 {
@@ -29,10 +29,21 @@ abstract class AbstractRequest
     protected $headers = array();
     protected $queryParams = array();
 
+    /**
+     * get url of request
+     * @return mixed
+     */
     public abstract function getUrl();
 
+    /**
+     * get method of request
+     * @return mixed
+     */
     public abstract function getMethod();
 
+    /**get headers of request
+     * @return array
+     */
     public function getHeaders()
     {
         return $this->headers;
@@ -48,11 +59,20 @@ abstract class AbstractRequest
         return "json";
     }
 
+    /**
+     * get expect type of request
+     * @return string
+     */
     public function getExpectType()
     {
         return "json";
     }
 
+    /**
+     * add header to request
+     * @param $key
+     * @param $value
+     */
     public function addHeader($key, $value)
     {
         $this->headers[$key] = $value;

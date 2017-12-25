@@ -18,7 +18,7 @@ namespace SMN\Client;
  *
  * @package SMN\Client
  * @author zhangyx
- * @version 1.0.1
+ * @version 1.1.0
  */
 interface SmnClient
 {

@@ -15,15 +15,15 @@ namespace SMN\Auth;
 
 use SMN\Common\SmnConfiguration as SmnConfiguration;
 use SMN\Core\RestClient as RestClient;
-use SMN\Request\Auth\AuthRequest as AuthRequest;
 use SMN\Exception\SMNException as SMNException;
+use SMN\Request\Auth\AuthRequest as AuthRequest;
 
 /**
  * Class IamAuth
  * User authentication
  * @package SMN\IamAuth
  * @author zhangyx
- * @version 1.0.1
+ * @version 1.1.0
  */
 class IamAuth
 {
@@ -54,6 +54,10 @@ class IamAuth
         $this->smnConfiguration = $smnConfiguration;
     }
 
+    /**
+     * get token and project
+     * @return array
+     */
     public function getTokenAndProject()
     {
         if (empty($this->secretToken) || is_null($this->secretToken) || $this->isExpired()) {

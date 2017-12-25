@@ -23,13 +23,13 @@ use SMN\Core\RestClient as RestClient;
  * Class DefaultSmnClient
  * @package SMN\Client
  * @author zhangyx
- * @version 1.0.1
+ * @version 1.1.0
  */
 class DefaultSmnClient implements SmnClient
 {
     private $smnConfiguration;
     private $auth;
-    private $userAgent = "smn-sdk-php/1.0.1";
+    private $userAgent = "smn-sdk-php/1.1.0";
 
     public function __construct($username, $domainName, $password, $regionName)
     {

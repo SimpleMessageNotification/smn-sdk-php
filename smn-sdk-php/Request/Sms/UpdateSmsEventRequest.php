@@ -23,7 +23,7 @@ use SMN\Exception\SMNException as SMNException;
  * the request to update sms event
  * @package SMN\Request\Sms
  * @author zhangyx
- * @version 1.0.1
+ * @version 1.1.0
  */
 class UpdateSmsEventRequest extends AbstractRequest
 {

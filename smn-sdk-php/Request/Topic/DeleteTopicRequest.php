@@ -22,7 +22,7 @@ use SMN\Common\Constants as Constants;
  * the request to delete topic request
  * @package SMN\Request\Topic
  * @author zhangyx
- * @version 1.0.1
+ * @version 1.1.0
  */
 class DeleteTopicRequest extends AbstractRequest
 {

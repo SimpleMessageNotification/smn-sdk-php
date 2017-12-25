@@ -17,7 +17,7 @@ namespace SMN\Common;
  * Class SmnConfiguration
  * @package SMN\Common
  * @author zhangyx
- * @version 1.0.1
+ * @version 1.1.0
  */
 class SmnConfiguration
 {

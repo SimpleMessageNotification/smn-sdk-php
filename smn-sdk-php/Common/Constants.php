@@ -18,7 +18,7 @@ namespace SMN\Common;
  * Class Constants
  * @package SMN\Common
  * @author zhangyx
- * @version 1.0.1
+ * @version 1.1.0
  */
 class Constants
 {

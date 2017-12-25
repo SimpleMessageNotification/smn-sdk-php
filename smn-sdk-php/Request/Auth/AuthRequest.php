@@ -17,13 +17,26 @@ use Http\Http as Http;
 use SMN\Request\AbstractRequest as AbstractRequest;
 use SMN\Common\Constants as Constants;
 
+/**
+ * Class AuthRequest
+ * the request to auth
+ * @package SMN\Request\Auth
+ * @author zhangyx
+ * @version 1.1.0
+ */
 class AuthRequest extends AbstractRequest
 {
+    /**
+     * @return mixed
+     */
     public function getUrl()
     {
         return str_replace(array("{regionName}"), array($this->smnConfiguration->getRegionName()), Constants::AUTH_URL);
     }
 
+    /**
+     * @return mixed
+     */
     public function getBodyParams()
     {
         return str_replace(array("{userName}", "{password}", "{domainName}", "{regionName}"),
@@ -32,6 +45,9 @@ class AuthRequest extends AbstractRequest
             Constants::AUTH_JSON);
     }
 
+    /**
+     * @return string
+     */
     public function getMethod()
     {
         return Http::POST;

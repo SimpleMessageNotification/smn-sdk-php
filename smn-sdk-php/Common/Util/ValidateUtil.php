@@ -19,7 +19,7 @@ namespace SMN\Common\Util;
  * validate tool
  * @package SMN\Common\Util
  * @author zhangyx
- * @version 1.0.1
+ * @version 1.1.0
  */
 class ValidateUtil
 {

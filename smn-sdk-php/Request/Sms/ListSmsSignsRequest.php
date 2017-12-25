@@ -22,7 +22,7 @@ use SMN\Common\Constants as Constants;
  * the request to list sms signs
  * @package SMN\Request\Sms
  * @author zhangyx
- * @version 1.0.1
+ * @version 1.1.0
  */
 class ListSmsSignsRequest extends AbstractRequest
 {

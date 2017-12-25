@@ -24,7 +24,7 @@ use SMN\Exception\SMNException as SMNException;
  * the request for list sms msg report
  * @package SMN\Request\Sms
  * @author zhangyx
- * @version 1.0.1
+ * @version 1.1.0
  */
 class ListSmsMsgReportRequest extends AbstractRequest
 {

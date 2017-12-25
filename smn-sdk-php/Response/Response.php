@@ -44,6 +44,11 @@ class Response
     public $content_type;
     public $headers;
 
+    /**
+     * Response constructor.
+     * @param $request
+     * @param $response
+     */
     public function __construct($request, $response)
     {
         $this->request = $request;
@@ -56,16 +61,25 @@ class Response
 
     }
 
+    /**
+     * @return mixed
+     */
     public function getRequest()
     {
         return $this->request;
     }
 
+    /**
+     * @return mixed
+     */
     public function getCode()
     {
         return $this->code;
     }
 
+    /**
+     * @return mixed
+     */
     public function getBody()
     {
         return $this->body;
@@ -112,7 +126,7 @@ class Response
      */
     public function isSuccess()
     {
-        return RestClient::isSuccess($this->code);
+        return RestClient::isSuccess($this->getCode());
     }
 }
 
