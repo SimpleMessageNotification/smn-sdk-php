@@ -36,6 +36,8 @@ class Constants
     const TOPIC_ATTRIBUTES_COMMON_API_URI = '/v2/{projectId}/notifications/topics/{topicUrn}/attributes';
     const TOPIC_ATTRIBUTES_WITH_NAME_API_URI = '/v2/{projectId}/notifications/topics/{topicUrn}/attributes/{name}';
     const PUBLISH_API_URI = '/v2/{projectId}/notifications/topics/{topicUrn}/publish';
+    const MESSAGE_TEMPLATE_API_URI= '/v2/{projectId}/notifications/message_template';
+    const MESSAGE_TEMPLATE_ID_API_URI= '/v2/{projectId}/notifications/message_template/{messageTemplateId}';
 
     const DEFAULT_LIMIT = 100;
     const DEFAULT_OFFSET = 0;
