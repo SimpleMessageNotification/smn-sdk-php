@@ -16,6 +16,7 @@ namespace SMN\Request\Topic;
 use Http\Http as Http;
 use SMN\Request\AbstractRequest as AbstractRequest;
 use SMN\Common\Constants as Constants;
+use SMN\Exception\SMNException as SMNException;
 
 /**
  * Class DeleteTopicAttributeByNameRequest

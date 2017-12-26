@@ -17,6 +17,7 @@ use Http\Http as Http;
 use SMN\Request\AbstractRequest as AbstractRequest;
 use SMN\Common\Constants as Constants;
 use SMN\Common\Util\ValidateUtil as ValidateUtil;
+use SMN\Exception\SMNException as SMNException;
 
 /**
  * Class PublishWithTemplateRequest
