@@ -29,6 +29,8 @@ class ValidateUtil
     private static $maxTopicDisplayName = 192;
     private static $maxSubjectLength = 512;
     private static $maxMessageLength = 262144;
+    private static $maxTemplateContent = 262144;
+    private static $templateNamePattern = "/^[a-zA-Z0-9]{1}([-_a-zA-Z0-9]){0,64}/";
 
     /**
      * validate phone
@@ -132,9 +134,37 @@ class ValidateUtil
         if (empty($message)) {
             return false;
         }
-        
+
         $bytes = self::getBytes($message);
         return count($bytes) < self::$maxMessageLength;
+    }
+
+    /**
+     * validate message template content
+     * @param $content
+     * @return bool
+     */
+    public static function validateTemplateContent($content)
+    {
+        if (empty($content)) {
+            return false;
+        }
+
+        $bytes = self::getBytes($content);
+        return count($bytes) < self::$maxTemplateContent;
+    }
+
+    /**
+     * validate template name
+     * @param $name the template name to validate
+     * @return bool
+     */
+    public static function validateTemplateName($name)
+    {
+        if (empty($name)) {
+            return false;
+        }
+        return preg_match(self::$templateNamePattern, $name);
     }
 
     /**

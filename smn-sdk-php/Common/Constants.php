@@ -39,6 +39,8 @@ class Constants
     const LIST_SUBSCRIPTIONS_API_URI = '/v2/{projectId}/notifications/subscriptions';
     const SUBSCRIPTIONS_TOPIC_API_URI = '/v2/{projectId}/notifications/topics/{topicUrn}/subscriptions';
     const UNSUBSCRIBE_API_URI = '/v2/{projectId}/notifications/subscriptions/{subscriptionUrn}';
+    const MESSAGE_TEMPLATE_API_URI= '/v2/{projectId}/notifications/message_template';
+    const MESSAGE_TEMPLATE_ID_API_URI= '/v2/{projectId}/notifications/message_template/{messageTemplateId}';
 
     const DEFAULT_LIMIT = 100;
     const DEFAULT_OFFSET = 0;
