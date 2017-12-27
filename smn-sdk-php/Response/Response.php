@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2017. Huawei Technologies Co., LTD. All rights reserved.
+ * Copyright (C) 2018. Huawei Technologies Co., LTD. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of Apache License, Version 2.0.
@@ -10,7 +10,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Apache License, Version 2.0 for more details.
  */
-namespace SMN\Core;
+
+namespace SMN\Response;
+
+use SMN\Core\RestClient;
+
 /**
  * Clean, simple class for HTTP Response.
  * in PHP.
@@ -24,7 +28,7 @@ namespace SMN\Core;
  * and "chainabilty" of the library.
  *
  * HTTP响应类定义
- * @member stdclass $request   请求实例 
+ * @member stdclass $request   请求实例
  * @member int $code           响应状态吗
  * @member array or string $body        响应body体,如果$reques->expected_type="json",则body为数组
  * @member string $content_type         响应body类型，可取值为：application/json、text/html等
@@ -39,38 +43,58 @@ class Response
     public $body;
     public $content_type;
     public $headers;
-    public function __construct($request,$response)
-    {   
-        $this->request=$request;
-        if(!is_null($response)) 
-        {
+
+    /**
+     * Response constructor.
+     * @param $request
+     * @param $response
+     */
+    public function __construct($request, $response)
+    {
+        $this->request = $request;
+        if (!is_null($response)) {
             $this->code = $response->code;
             $this->body = $response->body;
             $this->content_type = $response->content_type;
             $this->headers = $response->headers->toArray();
         }
-        
+
     }
+
+    /**
+     * @return mixed
+     */
     public function getRequest()
     {
         return $this->request;
     }
+
+    /**
+     * @return mixed
+     */
     public function getCode()
     {
         return $this->code;
     }
+
+    /**
+     * @return mixed
+     */
     public function getBody()
     {
         return $this->body;
     }
+
     public function getContent_type()
     {
         return $this->content_type;
     }
+
     public function getHeaders()
     {
         return $this->headers;
     }
+
     /**
      * Status Code Definitions
      *
@@ -96,5 +120,13 @@ class Response
     {
         return !empty($this->body);
     }
+
+    /**
+     * @return bool
+     */
+    public function isSuccess()
+    {
+        return RestClient::isSuccess($this->getCode());
+    }
 }
-?>
+

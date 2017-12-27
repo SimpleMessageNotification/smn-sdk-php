@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2017. Huawei Technologies Co., LTD. All rights reserved.
+ * Copyright (C) 2018. Huawei Technologies Co., LTD. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of Apache License, Version 2.0.
@@ -10,7 +10,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Apache License, Version 2.0 for more details.
  */
+
 namespace SMN\Common;
+
+use Http\Proxy as Proxy;
+
 /**
  * Clean, simple class for Config.
  * in PHP.
@@ -24,18 +28,31 @@ namespace SMN\Common;
  * and "chainabilty" of the library.
  *
  * 配置常量类定义
- * 
+ *
  * @author sunzhixi
+ * @author zhangyx
+ * @version 1.1.0
  */
 class Config
 {
-    public static $version = "smn-sdk-php/1.0.0";
-    public static $authUrl = "https://iam.{regionId}.myhwclouds.com/v3/auth/tokens";
-    public static $authJson='{"auth":{"identity":{"methods":["password"],"password":{"user":{"name":"{userName}","domain":{"name":"{domainName}"},"password":"{password}"}}},"scope":{"project":{"name":"{regionId}"}}}}';
-    public static $smnBaseUrl="https://smn.{regionId}.myhwclouds.com";
-    public static $smsPublishApi="/v2/{projectId}/notifications/sms";
+    // --------------代理设置/proxy parameters----------
+    public static $proxy_host = null;
+    public static $proxy_port = null;
+    public static $proxy_auth_type = null;
+    public static $auth_username = null;
+    public static $auth_password = null;
+    public static $proxy_type = Proxy::HTTP;
 
-    public static $proxy_host=NULL;
-    public static $proxy_port=NULL;
+    // ----------------超时时间/timeout--------
+    // 单位秒，unit s
+    public static $timeout = null;
+
+    // ---------是否严格进行ssl验证/strict ssl--------
+    public static $strictSsl = false;
+
+    //-----------客户端证书/client cert--------------
+    public static $cert = null;
+    public static $key = null;
+    public static $passphrase = null;
+    public static $encoding = 'PEM';
 }
-?>
