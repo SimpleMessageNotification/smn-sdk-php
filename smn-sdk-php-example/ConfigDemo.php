@@ -15,8 +15,7 @@ require_once(__DIR__ . '/../smn-sdk-php/Bootstrap.php');
 
 use SMN\Client\DefaultSmnClient as DefaultSmnClient;
 /**
- * publish demo
- * 消息发布demo
+ * 自定义配置demo
  */
 $client = new DefaultSmnClient(
     'YourAccountUserName',
