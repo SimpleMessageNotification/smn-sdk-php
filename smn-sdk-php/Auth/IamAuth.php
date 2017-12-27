@@ -79,6 +79,9 @@ class IamAuth
     {
         $authRequest = new AuthRequest();
         $authRequest->setSmnConfiguration($this->smnConfiguration);
+        $authRequest->addHeader("User-Agent", SDK_USER_AGENT);
+        $authRequest->addHeader("X-Smn-Sdk", SDK_USER_AGENT);
+
         $response = RestClient::getResponse($authRequest);
         if (!RestClient::isSuccess($response->code)) {
             throw new SMNException("SDK.AuthException", "SDK.AuthException : Authentication failure!");

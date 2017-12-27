@@ -29,7 +29,6 @@ class DefaultSmnClient implements SmnClient
 {
     private $smnConfiguration;
     private $auth;
-    private $userAgent = "smn-sdk-php/1.1.0";
 
     public function __construct($username, $domainName, $password, $regionName)
     {
@@ -61,6 +60,7 @@ class DefaultSmnClient implements SmnClient
         $request->addHeader("region", $this->smnConfiguration->getRegionName());
         $request->addHeader("X-Auth-Token", $secureToken);
         $request->addHeader("X-Project-Id", $projectId);
-        $request->addHeader("User-Agent", $this->userAgent);
+        $request->addHeader("User-Agent", SDK_USER_AGENT);
+        $request->addHeader("X-Smn-Sdk", SDK_USER_AGENT);
     }
 }
