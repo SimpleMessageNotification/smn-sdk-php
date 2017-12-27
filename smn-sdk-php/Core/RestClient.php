@@ -39,23 +39,6 @@ use SMN\Exception\SMNException as SMNException;
  */
 class RestClient
 {
-    private static $proxy_auth_type;
-    private static $auth_username;
-    private static $auth_password;
-    private static $proxy_type;
-    private static $proxy_host;
-    private static $proxy_port;
-
-    public static function setProxy_host($proxy_host)
-    {
-        self::$proxy_host = $proxy_host;
-    }
-
-    public static function setProxy_port($proxy_port)
-    {
-        self::$proxy_port = $proxy_port;
-    }
-
     public static function getResponse($request)
     {
         $method = $request->getMethod();
@@ -64,18 +47,26 @@ class RestClient
             ->method($method)
             ->addHeaders($request->getHeaders())
             ->expects($request->getExpectType())
-            ->withoutStrictSSL();
+            ->strictSSL(Config::$strictSsl);
 
-        if($method == Http::POST || $method == Http::PUT) {
+        if ($method == Http::POST || $method == Http::PUT) {
             $httpHelper->body($request->getBodyParams(), $request->getContentType());
         }
 
         if (!is_null(Config::$proxy_host) && !is_null(Config::$proxy_port)) {
-            $httpHelper = $httpHelper->useProxy(Config::$proxy_host, Config::$proxy_port);
+            $httpHelper = $httpHelper->useProxy(Config::$proxy_host, Config::$proxy_port, Config::$proxy_auth_type,
+                Config::$auth_username, Config::$auth_password, Config::$proxy_type);
         }
-        if (!is_null(self::$proxy_host) && !is_null(self::$proxy_port)) {
-            $httpHelper = $httpHelper->useProxy(self::$proxy_host, self::$proxy_port);
+
+        if (!is_null(Config::$timeout)) {
+            $httpHelper = $httpHelper->timeout(Config::$timeout);
         }
+
+        if (!is_null(Config::$cert) && !is_null(Config::$key)) {
+            $httpHelper = $httpHelper->clientSideCert(Config::$cert, Config::$key,
+                Config::$passphrase, Config::$encoding);
+        }
+
         try {
             $response = $httpHelper->send();
         } catch (\Exception $exception) {
