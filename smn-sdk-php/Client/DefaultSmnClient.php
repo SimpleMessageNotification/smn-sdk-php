@@ -13,11 +13,12 @@
 
 namespace SMN\Client;
 
-use SMN\Auth\IamAuth;
+use SMN\Auth\IamAuth as IamAuth;
+use SMN\Common\ClientConfiguration as ClientConfiguration;
 use SMN\Common\SmnConfiguration as SmnConfiguration;
-use SMN\Response\Response as Response;
-use SMN\Exception\SMNException as SMNException;
 use SMN\Core\RestClient as RestClient;
+use SMN\Exception\SMNException as SMNException;
+use SMN\Response\Response as Response;
 
 /**
  * Class DefaultSmnClient
@@ -29,11 +30,13 @@ class DefaultSmnClient implements SmnClient
 {
     private $smnConfiguration;
     private $auth;
+    private $clientConfiguration;
 
     public function __construct($username, $domainName, $password, $regionName)
     {
         $this->smnConfiguration = new SmnConfiguration($username, $domainName, $password, $regionName);
         $this->auth = new IamAuth($this->smnConfiguration);
+        $this->clientConfiguration = new ClientConfiguration();
     }
 
     /**
@@ -46,7 +49,8 @@ class DefaultSmnClient implements SmnClient
         list($projectId, $secureToken) = $this->auth->getTokenAndProject();
         $request->setSmnConfiguration($this->smnConfiguration);
         $this->addParamsAndHeader($request, $projectId, $secureToken);
-        $response = RestClient::getResponse($request);
+
+        $response = RestClient::getResponse($request, $this->clientConfiguration);
         return new Response($request, $response);
     }
 
@@ -62,5 +66,17 @@ class DefaultSmnClient implements SmnClient
         $request->addHeader("X-Project-Id", $projectId);
         $request->addHeader("User-Agent", SDK_USER_AGENT);
         $request->addHeader("X-Smn-Sdk", SDK_USER_AGENT);
+    }
+
+    /**
+     * @param mixed $clientConfiguration
+     */
+    public function setClientConfiguration($clientConfiguration)
+    {
+        if (empty($clientConfiguration) || is_null($clientConfiguration)) {
+            $clientConfiguration = new ClientConfiguration();
+        }
+        $this->clientConfiguration = $clientConfiguration;
+        $this->auth->setClientConfiguration($clientConfiguration);
     }
 }

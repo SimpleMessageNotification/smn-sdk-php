@@ -24,10 +24,11 @@ $client = new DefaultSmnClient(
     'YourRegionName');
 
 // 设置代理/set proxy
-\SMN\Common\Config::$proxy_host = '127.0.0.1';
-\SMN\Common\Config::$proxy_port = 8080;
-// 设置超时/set timeout
-\SMN\Common\Config::$timeout = 50;
+$config = new \SMN\Common\ClientConfiguration();
+$config->setProxyHost('127.0.0.1');
+$config->setProxyPort(8080);
+$config->setTimeout(80);
+$client->setClientConfiguration($config);
 
 // 发送短信
 smsPublish();

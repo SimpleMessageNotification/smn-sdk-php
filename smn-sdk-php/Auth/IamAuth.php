@@ -31,17 +31,10 @@ class IamAuth
     private $secretToken;
     private $expireTime;
     private $smnConfiguration;
+    private $clientConfiguration;
 
     private $timezone;
     private $dateTimeFormat = 'Y-m-d\TH:i:s.u\Z';
-
-    /**
-     * @param SmnConfiguration $smnConfiguration
-     */
-    public function setSmnConfiguration($smnConfiguration)
-    {
-        $this->smnConfiguration = $smnConfiguration;
-    }
 
     /**
      * IamAuth constructor.
@@ -52,6 +45,22 @@ class IamAuth
     {
         $this->timezone = new \DateTimeZone('UTC');
         $this->smnConfiguration = $smnConfiguration;
+    }
+
+    /**
+     * @param SmnConfiguration $smnConfiguration
+     */
+    public function setSmnConfiguration($smnConfiguration)
+    {
+        $this->smnConfiguration = $smnConfiguration;
+    }
+
+    /**
+     * @param mixed $clientConfiguration
+     */
+    public function setClientConfiguration($clientConfiguration)
+    {
+        $this->clientConfiguration = $clientConfiguration;
     }
 
     /**
@@ -82,7 +91,7 @@ class IamAuth
         $authRequest->addHeader("User-Agent", SDK_USER_AGENT);
         $authRequest->addHeader("X-Smn-Sdk", SDK_USER_AGENT);
 
-        $response = RestClient::getResponse($authRequest);
+        $response = RestClient::getResponse($authRequest, $this->clientConfiguration);
         if (!RestClient::isSuccess($response->code)) {
             throw new SMNException("SDK.AuthException", "SDK.AuthException : Authentication failure!");
         }

@@ -34,45 +34,57 @@ use SMN\Exception\SMNException as SMNException;
  * @member string  $proxy_auth_type   代理类型
  * @member string  $auth_username     用户名
  * @member string  $auth_password     密码
+ * @member ClientConfiguration $clientConfiguration httpclient config
  *
  * @author sunzhixi
+ * @author zhangyx
+ * @version 1.1.0
  */
 class RestClient
 {
-    public static function getResponse($request)
+    public static function getResponse($request, $clientConfiguration)
     {
         $method = $request->getMethod();
         $httpHelper = HttpHelper::init()
             ->uri($request->getUrl())
             ->method($method)
             ->addHeaders($request->getHeaders())
-            ->expects($request->getExpectType())
-            ->strictSSL(Config::$strictSsl);
+            ->expects($request->getExpectType());
+
 
         if ($method == Http::POST || $method == Http::PUT) {
             $httpHelper->body($request->getBodyParams(), $request->getContentType());
         }
-
-        if (!is_null(Config::$proxy_host) && !is_null(Config::$proxy_port)) {
-            $httpHelper = $httpHelper->useProxy(Config::$proxy_host, Config::$proxy_port, Config::$proxy_auth_type,
-                Config::$auth_username, Config::$auth_password, Config::$proxy_type);
+        if (!is_null($clientConfiguration)) {
+            self::setClienConfiguration($httpHelper, $clientConfiguration);
         }
-
-        if (!is_null(Config::$timeout)) {
-            $httpHelper = $httpHelper->timeout(Config::$timeout);
-        }
-
-        if (!is_null(Config::$cert) && !is_null(Config::$key)) {
-            $httpHelper = $httpHelper->clientSideCert(Config::$cert, Config::$key,
-                Config::$passphrase, Config::$encoding);
-        }
-
         try {
             $response = $httpHelper->send();
         } catch (\Exception $exception) {
             throw new SMNException("SDK.ServerException", $exception->getMessage());
         }
         return $response;
+    }
+
+    private static function setClienConfiguration($httpHelper, $clientConfiguration)
+    {
+        if (!is_null($clientConfiguration->getProxyHost()) && !is_null($clientConfiguration->getProxyPort())) {
+            $httpHelper->useProxy($clientConfiguration->getProxyHost(), $clientConfiguration->getProxyPort(),
+                $clientConfiguration->getProxyAuthType(),
+                $clientConfiguration->getAuthUsername(), $clientConfiguration->getAuthPassword(),
+                $clientConfiguration->getProxyType());
+        }
+
+        if (!is_null($clientConfiguration->getTimeout())) {
+            $httpHelper->timeout($clientConfiguration->getTimeout());
+        }
+
+        if (!is_null($clientConfiguration->getCert()) && !is_null($clientConfiguration->getKey())) {
+            $httpHelper->clientSideCert($clientConfiguration->getCert(), $clientConfiguration->getKey(),
+                $clientConfiguration->getPassphrase(), $clientConfiguration->getEncoding());
+        }
+
+        $httpHelper->strictSSL($clientConfiguration->isStrictSsl());
     }
 
     public static function isSuccess($status)
