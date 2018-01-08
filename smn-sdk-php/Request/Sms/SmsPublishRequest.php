@@ -42,7 +42,7 @@ class SmsPublishRequest extends AbstractRequest
             throw new SMNException("SDK.SmsPublishRequestException", "SmsPublishRequestException : empty signId!");
         }
 
-        if (!ValidateUtil::validatePhone($this->endpoint)) {
+        if (empty($this->endpoint)) {
             throw new SMNException("SDK.SmsPublishRequestException", "SmsPublishRequestException : phone number is invalid");
         }
 

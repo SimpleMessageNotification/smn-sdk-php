@@ -23,7 +23,7 @@ namespace SMN\Common\Util;
  */
 class ValidateUtil
 {
-    private static $patternPhone = '/^\+?[0-9]{1,31}/';
+    private static $patternPhone = '/^\+?[0-9]{1}[0-9 /\-]{1,31}/';
     private static $patternTopicName = '/^[a-zA-Z0-9]{1}[-_a-zA-Z0-9]{0,255}$/';
     private static $patternSubject = "/^[^\r\n\t\f]+$/";
     private static $maxTopicDisplayName = 192;
