@@ -22,9 +22,9 @@ namespace SMN\Common;
  */
 class Constants
 {
-    const AUTH_URL = 'https://iam.{regionName}.myhwclouds.com/v3/auth/tokens';
+    const AUTH_URL = 'https://iam.{regionName}.myhuaweicloud.com/v3/auth/tokens';
     const AUTH_JSON = '{"auth":{"identity":{"methods":["password"],"password":{"user":{"name":"{userName}","domain":{"name":"{domainName}"},"password":"{password}"}}},"scope":{"project":{"name":"{regionName}"}}}}';
-    const SMN_BASE_URL = 'https://smn.{regionName}.myhwclouds.com';
+    const SMN_BASE_URL = 'https://smn.{regionName}.myhuaweicloud.com';
     const SMS_PUBLISH_API_URI = '/v2/{projectId}/notifications/sms';
     const SMS_MSG_REPORT_API_URI = '/v2/{projectId}/notifications/sms/report';
     const SMS_EVENT_API_URI = '/v2/{projectId}/notifications/sms/callback';
