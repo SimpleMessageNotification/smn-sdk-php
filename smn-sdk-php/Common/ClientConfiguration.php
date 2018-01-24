@@ -56,6 +56,12 @@ class ClientConfiguration
     private $passphrase = null;
     private $encoding = 'PEM';
 
+    // ---------------host url--------------------
+    // default https://smn.{region}.myhuaweicloud.com
+    private $smn_host_url = null;
+    //default https://iam.{region}.myhuaweicloud.com
+    private $iam_host_url = null;
+
     /**
      * @return null
      */
@@ -270,5 +276,37 @@ class ClientConfiguration
     {
         $this->encoding = $encoding;
         return $this;
+    }
+
+    /**
+     * @return null
+     */
+    public function getSmnHostUrl()
+    {
+        return $this->smn_host_url;
+    }
+
+    /**
+     * @param null $smn_host_url
+     */
+    public function setSmnHostUrl($smn_host_url)
+    {
+        $this->smn_host_url = $smn_host_url;
+    }
+
+    /**
+     * @return null
+     */
+    public function getIamHostUrl()
+    {
+        return $this->iam_host_url;
+    }
+
+    /**
+     * @param null $iam_host_url
+     */
+    public function setIamHostUrl($iam_host_url)
+    {
+        $this->iam_host_url = $iam_host_url;
     }
 }

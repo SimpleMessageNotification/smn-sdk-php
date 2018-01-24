@@ -88,6 +88,7 @@ class IamAuth
     {
         $authRequest = new AuthRequest();
         $authRequest->setSmnConfiguration($this->smnConfiguration);
+        $authRequest->setClientConfiguration($this->clientConfiguration);
         $authRequest->addHeader("User-Agent", SDK_USER_AGENT);
         $authRequest->addHeader("X-Smn-Sdk", SDK_USER_AGENT);
 
