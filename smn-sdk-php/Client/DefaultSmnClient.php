@@ -48,6 +48,7 @@ class DefaultSmnClient implements SmnClient
     {
         list($projectId, $secureToken) = $this->auth->getTokenAndProject();
         $request->setSmnConfiguration($this->smnConfiguration);
+        $request->setClientConfiguration($this->clientConfiguration);
         $this->addParamsAndHeader($request, $projectId, $secureToken);
 
         $response = RestClient::getResponse($request, $this->clientConfiguration);

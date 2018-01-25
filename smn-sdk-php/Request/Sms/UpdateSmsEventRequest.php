@@ -13,10 +13,10 @@
 
 namespace SMN\Request\Sms;
 
-use SMN\Request\AbstractRequest as AbstractRequest;
 use Http\Http as Http;
 use SMN\Common\Constants as Constants;
 use SMN\Exception\SMNException as SMNException;
+use SMN\Request\AbstractRequest as AbstractRequest;
 
 /**
  * Class UpdateSmsEventRequest
@@ -34,9 +34,9 @@ class UpdateSmsEventRequest extends AbstractRequest
         if (empty($this->callback)) {
             throw new SMNException("SDK.UpdateSmsEventRequestException", "UpdateSmsEventRequestException: callback is invalid");
         }
-        return str_replace(array('{regionName}', '{projectId}'),
-            array($this->smnConfiguration->getRegionName(), $this->projectId),
-            Constants::SMN_BASE_URL . Constants::SMS_EVENT_API_URI);
+        $url = array(parent::getSmnServiceUrl());
+        array_push($url, str_replace(array('{projectId}'), array($this->projectId), Constants::SMS_EVENT_API_URI));
+        return join($url);
     }
 
     public function getMethod()

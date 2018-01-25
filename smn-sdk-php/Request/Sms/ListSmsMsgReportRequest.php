@@ -16,8 +16,8 @@ namespace SMN\Request\Sms;
 use Http\Http as Http;
 use SMN\Common\Constants as Constants;
 use SMN\Common\Util\ValidateUtil as ValidateUtil;
-use SMN\Request\AbstractRequest as AbstractRequest;
 use SMN\Exception\SMNException as SMNException;
+use SMN\Request\AbstractRequest as AbstractRequest;
 
 /**
  * Class ListSmsMsgReportRequest
@@ -56,9 +56,11 @@ class ListSmsMsgReportRequest extends AbstractRequest
             throw new SMNException("SDK.ListSmsMsgReportRequestException", "ListSmsMsgReportRequestException : offset is invalid");
 
         }
-        return str_replace(array('{regionName}', '{projectId}'),
-                array($this->smnConfiguration->getRegionName(), $this->projectId),
-                Constants::SMN_BASE_URL . Constants::SMS_MSG_REPORT_API_URI) . parent::getQueryString();
+
+        $url = array(parent::getSmnServiceUrl());
+        array_push($url, str_replace(array('{projectId}'), array($this->projectId), Constants::SMS_MSG_REPORT_API_URI));
+        array_push($url, parent::getQueryString());
+        return join($url);
     }
 
     public function getMethod()

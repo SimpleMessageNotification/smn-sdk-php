@@ -35,9 +35,10 @@ class DeleteSmsSignRequest extends AbstractRequest
         {
             throw new SMNException("SDK.DeleteSmsSignRequestException", "DeleteSmsSignRequestException : signId is null");
         }
-        return str_replace(array('{regionName}', '{projectId}', '{signId}'),
-            array($this->smnConfiguration->getRegionName(), $this->projectId, $this->signId),
-            Constants::SMN_BASE_URL . Constants::DELETE_SMS_SING_API_URI);
+
+        $url = array(parent::getSmnServiceUrl());
+        array_push($url, str_replace(array('{projectId}', '{signId}'), array($this->projectId, $this->signId), Constants::DELETE_SMS_SING_API_URI));
+        return join($url);
     }
 
     public function getMethod()
