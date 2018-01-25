@@ -14,9 +14,9 @@
 namespace SMN\Request\Sms;
 
 use Http\Http as Http;
-use SMN\Request\AbstractRequest as AbstractRequest;
 use SMN\Common\Constants as Constants;
 use SMN\Exception\SMNException as SMNException;
+use SMN\Request\AbstractRequest as AbstractRequest;
 
 /**
  * Class GetSmsMessageRequest
@@ -35,9 +35,9 @@ class GetSmsMessageRequest extends AbstractRequest
             throw new SMNException("SDK.GetSmsMessageRequestException", "GetSmsMessageRequestException : messageId is null");
         }
 
-        return str_replace(array('{regionName}', '{projectId}', '{messageId}'),
-            array($this->smnConfiguration->getRegionName(), $this->projectId, $this->messageId),
-            Constants::SMN_BASE_URL . Constants::GET_SMS_MESSAGE_API_URI);
+        $url = array(parent::getSmnServiceUrl());
+        array_push($url, str_replace(array('{projectId}', '{messageId}'), array($this->projectId, $this->messageId), Constants::GET_SMS_MESSAGE_API_URI));
+        return join($url);
     }
 
     public function getMethod()

@@ -14,8 +14,8 @@
 namespace SMN\Request\Auth;
 
 use Http\Http as Http;
-use SMN\Request\AbstractRequest as AbstractRequest;
 use SMN\Common\Constants as Constants;
+use SMN\Request\AbstractRequest as AbstractRequest;
 
 /**
  * Class AuthRequest
@@ -31,7 +31,9 @@ class AuthRequest extends AbstractRequest
      */
     public function getUrl()
     {
-        return str_replace(array("{regionName}"), array($this->smnConfiguration->getRegionName()), Constants::AUTH_URL);
+        $url = array(parent::getIamServiceUrl());
+        array_push($url, Constants::AUTH_URL);
+        return join($url);
     }
 
     /**

@@ -14,9 +14,9 @@
 namespace SMN\Request\Template;
 
 use Http\Http as Http;
-use SMN\Request\AbstractRequest as AbstractRequest;
 use SMN\Common\Constants as Constants;
 use SMN\Exception\SMNException as SMNException;
+use SMN\Request\AbstractRequest as AbstractRequest;
 
 /**
  * Class DeleteMessageTemplateRequest
@@ -35,9 +35,10 @@ class DeleteMessageTemplateRequest extends AbstractRequest
             throw new SMNException("SDK.DeleteMessageTemplateRequestException", "DeleteMessageTemplateRequestException :  message template id is invalid");
         }
 
-        return str_replace(array('{regionName}', '{projectId}', '{messageTemplateId}'),
-            array($this->smnConfiguration->getRegionName(), $this->projectId, $this->messageTemplateId),
-            Constants::SMN_BASE_URL . Constants::MESSAGE_TEMPLATE_ID_API_URI);
+        $url = array(parent::getSmnServiceUrl());
+        array_push($url, str_replace(array('{projectId}', '{messageTemplateId}'),
+            array($this->projectId, $this->messageTemplateId), Constants::MESSAGE_TEMPLATE_ID_API_URI));
+        return join($url);
     }
 
     public function getMethod()

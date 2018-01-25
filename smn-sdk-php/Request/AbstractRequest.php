@@ -13,6 +13,8 @@
 
 namespace SMN\Request;
 
+use SMN\Common\Constants as Constants;
+
 /**
  * Class AbstractRequest
  * @package SMN\Request
@@ -24,6 +26,7 @@ abstract class AbstractRequest
     protected $projectId;
     protected $regionName;
     protected $smnConfiguration;
+    protected $clientConfiguration;
 
     protected $bodyParams = array();
     protected $headers = array();
@@ -103,6 +106,14 @@ abstract class AbstractRequest
     }
 
     /**
+     * @param ClientConfiguration $clientConfiguration
+     */
+    public function setClientConfiguration($clientConfiguration)
+    {
+        $this->clientConfiguration = $clientConfiguration;
+    }
+
+    /**
      * get query string
      * @return string
      */
@@ -116,6 +127,31 @@ abstract class AbstractRequest
             $requestUrl = '?' . $requestUrl;
         }
         return substr($requestUrl, 0, -1);
+    }
+
+    /**
+     * @return string smn service url
+     */
+    public function getSmnServiceUrl()
+    {
+        if (!empty($this->clientConfiguration) && !empty($this->clientConfiguration->getSmnHostUrl())) {
+            return $this->clientConfiguration->getSmnHostUrl();
+        }
+
+        return str_replace(array('{regionName}', '{projectId}'),
+            array($this->smnConfiguration->getRegionName(), $this->projectId),
+            Constants::SMN_BASE_URL);
+    }
+
+    /**
+     * @return string iam service url
+     */
+    public function getIamServiceUrl()
+    {
+        if (!empty($this->clientConfiguration) && !empty($this->clientConfiguration->getIamHostUrl())) {
+            return $this->clientConfiguration->getIamHostUrl();
+        }
+        return str_replace(array("{regionName}"), array($this->smnConfiguration->getRegionName()), Constants::AUTH_BASE_URL);
     }
 
 }

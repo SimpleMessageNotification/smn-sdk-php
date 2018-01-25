@@ -14,9 +14,9 @@
 namespace SMN\Request\Topic;
 
 use Http\Http as Http;
-use SMN\Request\AbstractRequest as AbstractRequest;
 use SMN\Common\Constants as Constants;
 use SMN\Exception\SMNException as SMNException;
+use SMN\Request\AbstractRequest as AbstractRequest;
 
 /**
  * Class DeleteTopicAttributeByNameRequest
@@ -40,9 +40,10 @@ class DeleteTopicAttributeByNameRequest extends AbstractRequest
             throw new SMNException("SDK.DeleteTopicAttributeByNameRequestException", "DeleteTopicAttributeByNameRequestException : name is null");
         }
 
-        return str_replace(array('{regionName}', '{projectId}', '{topicUrn}', '{name}'),
-            array($this->smnConfiguration->getRegionName(), $this->projectId, $this->topicUrn, $this->name),
-            Constants::SMN_BASE_URL . Constants::TOPIC_ATTRIBUTES_WITH_NAME_API_URI);
+        $url = array(parent::getSmnServiceUrl());
+        array_push($url, str_replace(array('{projectId}', '{topicUrn}', '{name}'),
+            array($this->projectId, $this->topicUrn, $this->name), Constants::TOPIC_ATTRIBUTES_WITH_NAME_API_URI));
+        return join($url);
     }
 
     public function getMethod()

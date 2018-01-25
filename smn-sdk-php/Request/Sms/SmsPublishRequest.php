@@ -15,9 +15,8 @@ namespace SMN\Request\Sms;
 
 use Http\Http as Http;
 use SMN\Common\Constants as Constants;
-use SMN\Common\Util\ValidateUtil;
-use SMN\Request\AbstractRequest as AbstractRequest;
 use SMN\Exception\SMNException as SMNException;
+use SMN\Request\AbstractRequest as AbstractRequest;
 
 /**
  * Class SmsPublishRequest
@@ -46,10 +45,9 @@ class SmsPublishRequest extends AbstractRequest
             throw new SMNException("SDK.SmsPublishRequestException", "SmsPublishRequestException : phone number is invalid");
         }
 
-        return str_replace(array('{regionName}', '{projectId}'),
-            array($this->smnConfiguration->getRegionName(), $this->projectId),
-            Constants::SMN_BASE_URL . Constants::SMS_PUBLISH_API_URI);
-
+        $url = array(parent::getSmnServiceUrl());
+        array_push($url, str_replace(array('{projectId}'), array($this->projectId), Constants::SMS_PUBLISH_API_URI));
+        return join($url);
     }
 
     public function getMethod()

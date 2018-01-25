@@ -14,8 +14,8 @@
 namespace SMN\Request\Sms;
 
 use Http\Http as Http;
-use SMN\Request\AbstractRequest as AbstractRequest;
 use SMN\Common\Constants as Constants;
+use SMN\Request\AbstractRequest as AbstractRequest;
 
 /**
  * Class ListSmsEventRequest
@@ -31,9 +31,10 @@ class ListSmsEventRequest extends AbstractRequest
 
     public function getUrl()
     {
-        return str_replace(array('{regionName}', '{projectId}'),
-            array($this->smnConfiguration->getRegionName(), $this->projectId),
-            Constants::SMN_BASE_URL . Constants::SMS_EVENT_API_URI) . parent::getQueryString();
+        $url = array(parent::getSmnServiceUrl());
+        array_push($url, str_replace(array('{projectId}'), array($this->projectId), Constants::SMS_EVENT_API_URI));
+        array_push($url, parent::getQueryString());
+        return join($url);
     }
 
     public function getMethod()
