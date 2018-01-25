@@ -38,9 +38,10 @@ class UnsubscribeRequest extends AbstractRequest
         if (empty($this->subscriptionUrn)) {
             throw new SMNException("SDK.UnsubscribeRequestException", "UnsubscribeRequestException : subscription urn is null");
         }
-        return str_replace(array('{regionName}', '{projectId}', '{subscriptionUrn}'),
-            array($this->smnConfiguration->getRegionName(), $this->projectId, $this->subscriptionUrn),
-            Constants::SMN_BASE_URL . Constants::UNSUBSCRIBE_API_URI);
+
+        $url = array(parent::getSmnServiceUrl());
+        array_push($url, str_replace(array('{projectId}', '{subscriptionUrn}'), array($this->projectId, $this->subscriptionUrn), Constants::UNSUBSCRIBE_API_URI));
+        return join($url);
     }
 
     /**

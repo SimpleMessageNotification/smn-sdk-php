@@ -35,9 +35,10 @@ class QueryMessageTemplateDetailRequest extends AbstractRequest
             throw new SMNException("SDK.QueryMessageTemplateDetailRequestException", "QueryMessageTemplateDetailRequestException :  message template id is invalid");
         }
 
-        return str_replace(array('{regionName}', '{projectId}', '{messageTemplateId}'),
-            array($this->smnConfiguration->getRegionName(), $this->projectId, $this->messageTemplateId),
-            Constants::SMN_BASE_URL . Constants::MESSAGE_TEMPLATE_ID_API_URI);
+        $url = array(parent::getSmnServiceUrl());
+        array_push($url, str_replace(array('{projectId}', '{messageTemplateId}'),
+            array($this->projectId, $this->messageTemplateId), Constants::MESSAGE_TEMPLATE_ID_API_URI));
+        return join($url);
     }
 
     public function getMethod()

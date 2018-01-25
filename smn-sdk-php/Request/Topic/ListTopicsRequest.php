@@ -53,9 +53,12 @@ class ListTopicsRequest extends AbstractRequest
             throw new SMNException("SDK.ListTopicsRequestException", "ListTopicsRequestException : offset is invalid");
 
         }
-        return str_replace(array('{regionName}', '{projectId}'),
-                array($this->smnConfiguration->getRegionName(), $this->projectId),
-                Constants::SMN_BASE_URL . Constants::TOPIC_COMMON_API_URI) . parent::getQueryString();
+
+        $url = array(parent::getSmnServiceUrl());
+        array_push($url, str_replace(array('{projectId}'),
+            array($this->projectId), Constants::TOPIC_COMMON_API_URI));
+        array_push($url, parent::getQueryString());
+        return join($url);
     }
 
     public function getMethod()

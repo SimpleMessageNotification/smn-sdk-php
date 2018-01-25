@@ -36,9 +36,11 @@ class ListTopicAttributesRequest extends AbstractRequest
             throw new SMNException("SDK.ListTopicAttributesRequestException", "ListTopicAttributesRequestException : topic urn is null");
         }
 
-        return str_replace(array('{regionName}', '{projectId}', '{topicUrn}'),
-                array($this->smnConfiguration->getRegionName(), $this->projectId, $this->topicUrn),
-                Constants::SMN_BASE_URL . Constants::TOPIC_ATTRIBUTES_COMMON_API_URI) . parent::getQueryString();
+        $url = array(parent::getSmnServiceUrl());
+        array_push($url, str_replace(array('{projectId}', '{topicUrn}'),
+            array($this->projectId, $this->topicUrn), Constants::TOPIC_ATTRIBUTES_COMMON_API_URI));
+        array_push($url, parent::getQueryString());
+        return join($url);
     }
 
     public function getMethod()
