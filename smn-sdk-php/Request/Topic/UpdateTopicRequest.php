@@ -41,9 +41,10 @@ class UpdateTopicRequest extends AbstractRequest
             throw new SMNException("SDK.UpdateTopicRequestException", "UpdateTopicRequestException : topic display name is invalid");
         }
 
-        return str_replace(array('{regionName}', '{projectId}', '{topicUrn}'),
-            array($this->smnConfiguration->getRegionName(), $this->projectId, $this->topicUrn),
-            Constants::SMN_BASE_URL . Constants::TOPIC_WITH_URN_API_URI);
+        $url = array(parent::getSmnServiceUrl());
+        array_push($url, str_replace(array('{projectId}', '{topicUrn}'),
+            array($this->projectId, $this->topicUrn), Constants::TOPIC_WITH_URN_API_URI));
+        return join($url);
     }
 
     public function getMethod()

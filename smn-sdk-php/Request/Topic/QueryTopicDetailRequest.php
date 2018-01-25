@@ -14,9 +14,9 @@
 namespace SMN\Request\Topic;
 
 use Http\Http as Http;
-use SMN\Request\AbstractRequest as AbstractRequest;
 use SMN\Common\Constants as Constants;
 use SMN\Exception\SMNException as SMNException;
+use SMN\Request\AbstractRequest as AbstractRequest;
 
 /**
  * Class QueryTopicDetailRequest
@@ -36,9 +36,10 @@ class QueryTopicDetailRequest extends AbstractRequest
             throw new SMNException("SDK.QueryTopicDetailRequestException", "QueryTopicDetailRequestException : topic urn is null");
         }
 
-        return str_replace(array('{regionName}', '{projectId}', '{topicUrn}'),
-            array($this->smnConfiguration->getRegionName(), $this->projectId, $this->topicUrn),
-            Constants::SMN_BASE_URL . Constants::TOPIC_WITH_URN_API_URI);
+        $url = array(parent::getSmnServiceUrl());
+        array_push($url, str_replace(array('{projectId}', '{topicUrn}'),
+            array($this->projectId, $this->topicUrn), Constants::TOPIC_WITH_URN_API_URI));
+        return join($url);
     }
 
     public function getMethod()

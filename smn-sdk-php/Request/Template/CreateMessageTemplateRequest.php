@@ -14,10 +14,10 @@
 namespace SMN\Request\Template;
 
 use Http\Http as Http;
-use SMN\Request\AbstractRequest as AbstractRequest;
 use SMN\Common\Constants as Constants;
 use SMN\Common\Util\ValidateUtil as ValidateUtil;
 use SMN\Exception\SMNException as SMNException;
+use SMN\Request\AbstractRequest as AbstractRequest;
 
 /**
  * Class CreateTopicRequest
@@ -42,9 +42,9 @@ class CreateMessageTemplateRequest extends AbstractRequest
             throw new SMNException("SDK.CreateMessageTemplateRequestException", "CreateMessageTemplateRequestException : template name is invalid");
         }
 
-        return str_replace(array('{regionName}', '{projectId}'),
-            array($this->smnConfiguration->getRegionName(), $this->projectId),
-            Constants::SMN_BASE_URL . Constants::MESSAGE_TEMPLATE_API_URI);
+        $url = array(parent::getSmnServiceUrl());
+        array_push($url, str_replace(array('{projectId}'), array($this->projectId), Constants::MESSAGE_TEMPLATE_API_URI));
+        return join($url);
     }
 
     public function getMethod()

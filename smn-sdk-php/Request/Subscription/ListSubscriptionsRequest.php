@@ -56,9 +56,10 @@ class ListSubscriptionsRequest extends AbstractRequest
 
         }
 
-        return str_replace(array('{regionName}', '{projectId}'),
-                array($this->smnConfiguration->getRegionName(), $this->projectId),
-                Constants::SMN_BASE_URL . Constants::LIST_SUBSCRIPTIONS_API_URI) . parent::getQueryString();
+        $url = array(parent::getSmnServiceUrl());
+        array_push($url, str_replace(array('{projectId}'), array($this->projectId), Constants::LIST_SUBSCRIPTIONS_API_URI));
+        array_push($url, parent::getQueryString());
+        return join($url);
     }
 
     /**
