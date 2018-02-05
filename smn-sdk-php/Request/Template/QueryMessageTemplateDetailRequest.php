@@ -55,4 +55,12 @@ class QueryMessageTemplateDetailRequest extends AbstractRequest
         $this->messageTemplateId = $messageTemplateId;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getMessageTemplateId()
+    {
+        return $this->messageTemplateId;
+    }
 }

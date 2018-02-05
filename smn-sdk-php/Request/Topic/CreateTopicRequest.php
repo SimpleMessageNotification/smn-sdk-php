@@ -72,4 +72,20 @@ class CreateTopicRequest extends AbstractRequest
         $this->bodyParams["display_name"] = $displayName;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDisplayName()
+    {
+        return $this->displayName;
+    }
 }

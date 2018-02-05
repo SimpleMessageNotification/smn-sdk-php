@@ -68,4 +68,20 @@ class ListTopicAttributesRequest extends AbstractRequest
         $this->queryParams["name"] = $name;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getTopicUrn()
+    {
+        return $this->topicUrn;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 }

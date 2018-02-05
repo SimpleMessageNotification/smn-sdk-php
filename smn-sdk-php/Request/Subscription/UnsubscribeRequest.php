@@ -62,4 +62,12 @@ class UnsubscribeRequest extends AbstractRequest
         $this->subscriptionUrn = $subscriptionUrn;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getSubscriptionUrn()
+    {
+        return $this->subscriptionUrn;
+    }
 }

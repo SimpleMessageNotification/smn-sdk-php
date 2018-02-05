@@ -54,4 +54,12 @@ class UpdateSmsEventRequest extends AbstractRequest
         $this->bodyParams["callback"] = $callback;
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCallback()
+    {
+        return $this->callback;
+    }
 }

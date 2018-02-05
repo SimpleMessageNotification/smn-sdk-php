@@ -154,4 +154,19 @@ abstract class AbstractRequest
         return str_replace(array("{regionName}"), array($this->smnConfiguration->getRegionName()), Constants::AUTH_BASE_URL);
     }
 
+    /**
+     * @return string
+     */
+    public function getProjectId()
+    {
+        return $this->projectId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRegionName()
+    {
+        return $this->regionName;
+    }
 }

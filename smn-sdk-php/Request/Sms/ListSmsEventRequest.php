@@ -52,4 +52,12 @@ class ListSmsEventRequest extends AbstractRequest
         $this->queryParams["event_type"] = $eventType;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getEventType()
+    {
+        return $this->eventType;
+    }
 }

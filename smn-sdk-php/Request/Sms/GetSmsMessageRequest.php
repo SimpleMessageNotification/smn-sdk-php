@@ -55,5 +55,11 @@ class GetSmsMessageRequest extends AbstractRequest
         return $this;
     }
 
-
+    /**
+     * @return string
+     */
+    public function getMessageId()
+    {
+        return $this->messageId;
+    }
 }
