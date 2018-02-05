@@ -55,4 +55,12 @@ class DeleteSmsSignRequest extends AbstractRequest
         $this->signId = $signId;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getSignId()
+    {
+        return $this->signId;
+    }
 }

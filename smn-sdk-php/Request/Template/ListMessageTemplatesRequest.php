@@ -112,4 +112,36 @@ class ListMessageTemplatesRequest extends AbstractRequest
         $this->queryParams["limit"] = $limit;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getProtocol()
+    {
+        return $this->protocol;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessageTemplateName()
+    {
+        return $this->messageTemplateName;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOffset()
+    {
+        return $this->offset;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLimit()
+    {
+        return $this->limit;
+    }
 }

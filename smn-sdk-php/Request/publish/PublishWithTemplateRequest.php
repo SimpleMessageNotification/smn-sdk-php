@@ -99,4 +99,36 @@ class PublishWithTemplateRequest extends AbstractRequest
         $this->bodyParams["tags"] = $tags;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getTopicUrn()
+    {
+        return $this->topicUrn;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessageTemplateName()
+    {
+        return $this->messageTemplateName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
 }

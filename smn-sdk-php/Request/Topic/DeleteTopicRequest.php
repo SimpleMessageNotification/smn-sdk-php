@@ -55,4 +55,12 @@ class DeleteTopicRequest extends AbstractRequest
         $this->topicUrn = $topicUrn;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getTopicUrn()
+    {
+        return $this->topicUrn;
+    }
 }

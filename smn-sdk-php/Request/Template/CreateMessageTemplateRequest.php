@@ -84,4 +84,28 @@ class CreateMessageTemplateRequest extends AbstractRequest
         $this->bodyParams["message_template_name"] = $messageTemplateName;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProtocol()
+    {
+        return $this->protocol;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessageTemplateName()
+    {
+        return $this->messageTemplateName;
+    }
 }

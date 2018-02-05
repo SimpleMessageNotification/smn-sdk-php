@@ -87,4 +87,28 @@ class PublishWithMessageRequest extends AbstractRequest
         $this->bodyParams["subject"] = $subject;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getTopicUrn()
+    {
+        return $this->topicUrn;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
 }

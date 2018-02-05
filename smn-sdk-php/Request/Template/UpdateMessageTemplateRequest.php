@@ -72,4 +72,20 @@ class UpdateMessageTemplateRequest extends AbstractRequest
         $this->messageTemplateId = $messageTemplateId;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessageTemplateId()
+    {
+        return $this->messageTemplateId;
+    }
 }

@@ -87,4 +87,28 @@ class SmsPublishRequest extends AbstractRequest
         $this->bodyParams["sign_id"] = $signId;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getEndpoint()
+    {
+        return $this->endpoint;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSignId()
+    {
+        return $this->signId;
+    }
 }

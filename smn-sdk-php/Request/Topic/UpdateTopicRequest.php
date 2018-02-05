@@ -72,4 +72,20 @@ class UpdateTopicRequest extends AbstractRequest
         $this->bodyParams["display_name"] = $displayName;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getTopicUrn()
+    {
+        return $this->topicUrn;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDisplayName()
+    {
+        return $this->displayName;
+    }
 }
