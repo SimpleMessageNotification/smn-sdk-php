@@ -27,6 +27,9 @@ class Constants
     const AUTH_JSON = '{"auth":{"identity":{"methods":["password"],"password":{"user":{"name":"{userName}","domain":{"name":"{domainName}"},"password":"{password}"}}},"scope":{"project":{"name":"{regionName}"}}}}';
     const SMN_BASE_URL = 'https://smn.{regionName}.myhuaweicloud.com';
     const SMS_PUBLISH_API_URI = '/v2/{projectId}/notifications/sms';
+    const PROMOTION_SMS_PUBLISH_API_URI = '/v2/{projectId}/notifications/sms/promotion';
+    const SMS_TEMPLATE_API_URI = '/v2/{projectId}/notifications/sms_template';
+    const SMS_TEMPLATE_MESSAGE_ID_API_URI = '/v2/{projectId}/notifications/sms_template/{messageId}';
     const SMS_MSG_REPORT_API_URI = '/v2/{projectId}/notifications/sms/report';
     const SMS_EVENT_API_URI = '/v2/{projectId}/notifications/sms/callback';
     const LIST_SMS_SINGS_API_URI = '/v2/{projectId}/notifications/sms_sign';
