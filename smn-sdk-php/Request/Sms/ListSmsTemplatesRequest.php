@@ -50,7 +50,7 @@ class ListSmsTemplatesRequest extends AbstractRequest
     private $smsTemplateType;
 
     /**
-     * @var
+     * status
      */
     private $status;
 
