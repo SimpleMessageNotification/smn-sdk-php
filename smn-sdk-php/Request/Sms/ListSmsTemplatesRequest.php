@@ -50,6 +50,11 @@ class ListSmsTemplatesRequest extends AbstractRequest
     private $smsTemplateType;
 
     /**
+     * status
+     */
+    private $status;
+
+    /**
      * get url of request
      * @return string
      */
@@ -120,6 +125,25 @@ class ListSmsTemplatesRequest extends AbstractRequest
         $this->smsTemplateType = $smsTemplateType;
         $this->queryParams["sms_template_type"] = $this->smsTemplateType;
         return $this;
+    }
+
+    /**
+     * @param mixed $status
+     * @return ListSmsTemplatesRequest
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        $this->queryParams["status"] = $this->status;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     /**
