@@ -138,7 +138,6 @@ class ListSmsTemplatesRequest extends AbstractRequest
         return $this;
     }
 
-
     /**
      * @return mixed
      */
