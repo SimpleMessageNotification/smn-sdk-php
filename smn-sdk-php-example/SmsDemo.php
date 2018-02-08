@@ -28,6 +28,10 @@ $client = new DefaultSmnClient(
 // the demo lists
 // sms publish
 smsPublish();
+// promotion sms publish
+promotionSmsPublish();
+// create sms template
+createSmsTemplate();
 // list sms signs
 listSmsSigns();
 // delete sms sign
@@ -40,10 +44,16 @@ updateSmsEvent();
 getSmsMessage();
 // list sms event
 listSmsEvent();
+//delete sms template
+deleteSmsTemplate();
+// list sms templates
+listSmsTemplates();
+// get sms template detail
+getSmsTemplateDetail();
 
 /**
- * 发送短信
- * send sms
+ * 发送通知验证码短信
+ * send notify/verify sms
  * @throws \SMN\Exception\SMNException
  */
 function smsPublish()
@@ -53,6 +63,25 @@ function smsPublish()
     $smnRequest->setEndpoint('8613688807587')
         ->setSignId('6be340e91e5241e4b5d85837e6709104')
         ->setMessage('您的验证码是:12346，请查收');
+    $response = $client->sendRequest($smnRequest);
+    print_r($response->isSuccess());
+    print_r($response->body);
+}
+
+/**
+ * 发送推广类短信
+ *
+ * send promotion sms
+ * @throws \SMN\Exception\SMNException
+ */
+function promotionSmsPublish()
+{
+    global $client;
+    $smnRequest = new \SMN\Request\Sms\PromotionSmsPublishRequest();
+    $smnRequest->setEndpoints(array("13688807587", "13688807823"))
+        ->setSignId("47f86cf7c9a7449d98ee61cf193a1060")
+        ->setSmsTemplateId("bfda25c6406e42ddabad74b4a20f6d05");
+
     $response = $client->sendRequest($smnRequest);
     print_r($response->isSuccess());
     print_r($response->body);
@@ -158,4 +187,78 @@ function getSmsMessage()
     print_r($response->isSuccess());
     print_r($response->body);
 
+}
+
+/**
+ * 创建短信模板
+ *
+ * create sms template
+ * @throws \SMN\Exception\SMNException
+ */
+function createSmsTemplate()
+{
+    global $client;
+    $smnRequest = new \SMN\Request\Sms\CreateSmsTemplateRequest();
+    $smnRequest->setRemark("helloworld")
+        ->setSmsTemplateContent("拒绝套路，全线低价！快戳http://t.cn/RWafjJ，如有疑问详细4000-955-988转1，退订回TD")
+        ->setSmsTemplateName("拒绝套路1234")
+        ->setSmsTemplateType(1);
+
+    $response = $client->sendRequest($smnRequest);
+    print_r($response->isSuccess());
+    print_r($response->body);
+}
+
+/**
+ * 查询短信模板列表
+ *
+ * list sms templates
+ * @throws \SMN\Exception\SMNException
+ */
+function listSmsTemplates()
+{
+    global $client;
+    $smnRequest = new \SMN\Request\Sms\ListSmsTemplatesRequest();
+    $smnRequest->setLimit(10)
+        ->setOffset(0)
+        ->setSmsTemplateType(1)
+        ->setSmsTemplateName("模板");
+
+    $response = $client->sendRequest($smnRequest);
+    print_r($response->isSuccess());
+    print_r($response->body);
+}
+
+/**
+ * 查询短信模板详情
+ *
+ * get sms template detail
+ * @throws \SMN\Exception\SMNException
+ */
+function getSmsTemplateDetail()
+{
+    global $client;
+    $smnRequest = new \SMN\Request\Sms\GetSmsTemplateDetailRequest();
+    $smnRequest->setSmsTemplateId("9ac30030ca2c42909638eb643bcd9d0c");
+
+    $response = $client->sendRequest($smnRequest);
+    print_r($response->isSuccess());
+    print_r($response->body);
+}
+
+/**
+ * 删除短信模板
+ *
+ * delete sms template
+ * @throws \SMN\Exception\SMNException
+ */
+function deleteSmsTemplate()
+{
+    global $client;
+    $smnRequest = new \SMN\Request\Sms\DeleteSmsTemplateRequest();
+    $smnRequest->setSmsTemplateId("873b6edfafaa4dc1a77de0d24a9e9921");
+
+    $response = $client->sendRequest($smnRequest);
+    print_r($response->isSuccess());
+    print_r($response->body);
 }
