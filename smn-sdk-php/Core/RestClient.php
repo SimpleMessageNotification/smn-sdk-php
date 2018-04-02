@@ -15,7 +15,6 @@ namespace SMN\Core;
 
 use Http\Http;
 use Http\HttpHelper as HttpHelper;
-use SMN\Common\Config as Config;
 use SMN\Exception\SMNException as SMNException;
 
 /**
@@ -87,8 +86,26 @@ class RestClient
         $httpHelper->strictSSL($clientConfiguration->isStrictSsl());
     }
 
+    /**
+     * check http response is scuccess
+     * @param $status http code
+     * @return bool
+     */
     public static function isSuccess($status)
     {
         return $status >= 200 && $status < 300;
+    }
+
+    /**
+     * check response is no permission
+     * @param $response
+     * @return bool
+     */
+    public static function isNoPermission($response)
+    {
+        if (!is_null($response)) {
+            return $response->code == 403 || $response->code == 401;
+        }
+        return false;
     }
 }
