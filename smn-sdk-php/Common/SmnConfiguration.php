@@ -13,7 +13,7 @@
 
 namespace SMN\Common;
 
-define ('SDK_USER_AGENT', 'smn-sdk-php/1.1.1', true);
+define ('SDK_USER_AGENT', 'smn-sdk-php/1.1.2', true);
 /**
  * Class SmnConfiguration
  * @package SMN\Common
