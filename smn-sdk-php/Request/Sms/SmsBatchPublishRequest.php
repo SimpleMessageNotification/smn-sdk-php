@@ -19,31 +19,44 @@ use SMN\Exception\SMNException as SMNException;
 use SMN\Request\AbstractRequest as AbstractRequest;
 
 /**
- * Class SmsPublishRequest
- * the request message for sms publish
+ * Class SmsBatchPublishRequest
+ * the request message for batch send notification or verify sms
  * @package SMN\Request\Auth
  * @author zhangyx
- * @version 1.1.0
+ * @version 1.1.2
  */
-class SmsPublishRequest extends AbstractRequest
+class SmsBatchPublishRequest extends AbstractRequest
 {
-    private $endpoint;
+    /**
+     * endpoints
+     */
+    private $endpoints;
+    /**
+     * sms message
+     */
     private $message;
+    /**
+     * sign id
+     */
     private $signId;
+
+    /**
+     * message is include signName, default false
+     */
     private $messageIncludeSignFlag = false;
 
     public function getUrl()
     {
         if (empty($this->message)) {
-            throw new SMNException("SDK.SmsPublishRequestException", "SmsPublishRequestException : No Message!");
+            throw new SMNException("SDK.SmsBatchPublishRequestException", "SmsPublishRequestException : No Message!");
         }
 
-        if (empty($this->endpoint)) {
-            throw new SMNException("SDK.SmsPublishRequestException", "SmsPublishRequestException : phone number is invalid");
+        if (empty($this->endpoints)) {
+            throw new SMNException("SDK.SmsBatchPublishRequestException", "SmsPublishRequestException : phone number is invalid");
         }
 
         if (!$this->messageIncludeSignFlag && empty($this->signId)) {
-            throw new SMNException("SDK.SmsPublishRequestException", "SmsPublishRequestException : sign id is null.");
+            throw new SMNException("SDK.SmsBatchPublishRequestException", "SmsPublishRequestException : sign id is null.");
         }
 
         $url = array(parent::getSmnServiceUrl());
@@ -54,17 +67,6 @@ class SmsPublishRequest extends AbstractRequest
     public function getMethod()
     {
         return Http::POST;
-    }
-
-    /**
-     * @param mixed $endpoint
-     * @return $this
-     */
-    public function setEndpoint($endpoint)
-    {
-        $this->endpoint = $endpoint;
-        $this->bodyParams["endpoint"] = $endpoint;
-        return $this;
     }
 
     /**
@@ -101,19 +103,22 @@ class SmsPublishRequest extends AbstractRequest
     }
 
     /**
-     * @return bool
+     * @param array $endpoints
+     * @return $this
      */
-    public function isMessageIncludeSignFlag()
+    public function setEndpoints($endpoints)
     {
-        return $this->messageIncludeSignFlag;
+        $this->endpoints = $endpoints;
+        $this->bodyParams["endpoints"] = $endpoints;
+        return $this;
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getEndpoint()
+    public function getEndpoints()
     {
-        return $this->endpoint;
+        return $this->endpoints;
     }
 
     /**
@@ -130,5 +135,13 @@ class SmsPublishRequest extends AbstractRequest
     public function getSignId()
     {
         return $this->signId;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getMessageIncludeSignFlag()
+    {
+        return $this->messageIncludeSignFlag;
     }
 }
