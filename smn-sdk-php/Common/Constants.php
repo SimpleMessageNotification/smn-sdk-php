@@ -43,10 +43,12 @@ class Constants
     const LIST_SUBSCRIPTIONS_API_URI = '/v2/{projectId}/notifications/subscriptions';
     const SUBSCRIPTIONS_TOPIC_API_URI = '/v2/{projectId}/notifications/topics/{topicUrn}/subscriptions';
     const UNSUBSCRIBE_API_URI = '/v2/{projectId}/notifications/subscriptions/{subscriptionUrn}';
-    const MESSAGE_TEMPLATE_API_URI= '/v2/{projectId}/notifications/message_template';
-    const MESSAGE_TEMPLATE_ID_API_URI= '/v2/{projectId}/notifications/message_template/{messageTemplateId}';
+    const MESSAGE_TEMPLATE_API_URI = '/v2/{projectId}/notifications/message_template';
+    const MESSAGE_TEMPLATE_ID_API_URI = '/v2/{projectId}/notifications/message_template/{messageTemplateId}';
+    const SMS_BATCH_PUBLISH_WITH_DIFF_MESSAGE = '/v2/{projectId}/notifications/batch_sms';
 
     const DEFAULT_LIMIT = 100;
     const DEFAULT_OFFSET = 0;
+    const MAX_SMS_BATCH_PUBLISH_SIZE = 1000;
 }
 
