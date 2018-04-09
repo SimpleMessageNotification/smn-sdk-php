@@ -52,6 +52,12 @@ class DefaultSmnClient implements SmnClient
         $this->addParamsAndHeader($request, $projectId, $secureToken);
 
         $response = RestClient::getResponse($request, $this->clientConfiguration);
+
+        // clean token if is no permission
+        if (RestClient::isNoPermission($response)) {
+            $this->cleanToken();
+        }
+
         return new Response($request, $response);
     }
 
@@ -79,5 +85,15 @@ class DefaultSmnClient implements SmnClient
         }
         $this->clientConfiguration = $clientConfiguration;
         $this->auth->setClientConfiguration($clientConfiguration);
+    }
+
+    /**
+     * clean token
+     */
+    public function cleanToken()
+    {
+        if (!is_null($this->auth)) {
+            $this->auth->cleanToken();
+        }
     }
 }

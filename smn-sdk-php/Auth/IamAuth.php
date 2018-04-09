@@ -78,6 +78,14 @@ class IamAuth
         return $tokenProject;
     }
 
+    /**
+     * clean cache token
+     */
+    public function cleanToken()
+    {
+        $this->secretToken = null;
+    }
+
     private function isExpired()
     {
         $now = new \DateTime("now", $this->timezone);
