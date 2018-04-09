@@ -4,3 +4,9 @@
 
 2018-02-05 version 1.1.1
 1.add sms template
+
+2018-04-09 version 1.1.2
+1.Fix token cache
+2.Add batch send notifications and verfication code SMS
+3.SmsPublish and SmsBatchPublish add parameter message_include_sign_flag
+4.Add SmsBatchPublishWithDiffMessage

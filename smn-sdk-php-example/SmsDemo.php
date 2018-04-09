@@ -25,9 +25,14 @@ $client = new DefaultSmnClient(
     'YourAccountPassword',
     'YourRegionName');
 
+
 // the demo lists
 // sms publish
 smsPublish();
+// batch send notify/verify sms
+smsBatchPublish();
+//batch send notify / verify sms with diff message
+smsBatchPublishWithDiffMessage();
 // promotion sms publish
 promotionSmsPublish();
 // create sms template
@@ -49,7 +54,7 @@ deleteSmsTemplate();
 // list sms templates
 listSmsTemplates();
 // get sms template detail
-getSmsTemplateDetail();
+//getSmsTemplateDetail();
 
 /**
  * 发送通知验证码短信
@@ -60,13 +65,54 @@ function smsPublish()
 {
     global $client;
     $smnRequest = new SMN\Request\Sms\SmsPublishRequest();
-    $smnRequest->setEndpoint('8613688807587')
+    // message_include_sign_flag时，不要传sign_id(也不要设值)，message内容中带上签名名称，如【华为企业云】
+    $smnRequest->setEndpoint('861368*****587')
+        ->setMessage('您的验证码是:12346，请查收')
         ->setSignId('6be340e91e5241e4b5d85837e6709104')
-        ->setMessage('您的验证码是:12346，请查收');
+        ->setMessageIncludeSignFlag(false);
     $response = $client->sendRequest($smnRequest);
     print_r($response->isSuccess());
     print_r($response->body);
 }
+
+/**
+ * 批量发送通知验证码短信
+ * batch send notify/verify sms
+ * @throws \SMN\Exception\SMNException
+ */
+function smsBatchPublish()
+{
+    global $client;
+    $smnRequest = new SMN\Request\Sms\SmsBatchPublishRequest();
+    // message_include_sign_flag时，不要传sign_id(也不要设值)，message内容中带上签名名称，如【华为企业云】
+    $smnRequest->setEndpoints(array('1368*****587', '18673*****875'))
+        ->setMessage('您的验证码是:12347，请查收')
+        ->setSignId('6be340e91e5241e4b5d85837e6709104')
+        ->setMessageIncludeSignFlag(true);
+    $response = $client->sendRequest($smnRequest);
+    print_r($response->isSuccess());
+    print_r($response->body);
+}
+
+/**
+ * 批量发送通知验证码短信
+ * batch send notify/verify sms with diff message
+ * @throws \SMN\Exception\SMNException
+ */
+function smsBatchPublishWithDiffMessage()
+{
+    global $client;
+    // message_include_sign_flag时，不要传sign_id(也不要设值)，message内容中带上签名名称，如【华为企业云】
+    $message1 = array('endpoint' => '1867*****75', 'message' => '【华为企业云】你好，你的验证码是123456', 'message_include_sign_flag' => true);
+    $message2 = array('endpoint' => '1368*****87', 'message' => '你好，你的验证码是12345678', 'sign_id' => '6be340e91e5241e4b5d85837e6709104', 'message_include_sign_flag' => false);
+
+    $smnRequest = new SMN\Request\Sms\SmsBatchPublishWithDiffMessageRequest();
+    $smnRequest->setSmsMessages(array($message1, $message2));
+    $response = $client->sendRequest($smnRequest);
+    print_r($response->isSuccess());
+    print_r($response->body);
+}
+
 
 /**
  * 发送推广类短信

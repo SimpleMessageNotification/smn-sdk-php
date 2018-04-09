@@ -29,4 +29,11 @@ interface SmnClient
      * @return mixed
      */
     public function sendRequest($request);
+
+    /**
+     * 清理缓存的token
+     *
+     * @return void
+     */
+    public function cleanToken();
 }
